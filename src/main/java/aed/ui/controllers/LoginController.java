@@ -3,6 +3,7 @@ package aed.ui.controllers;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 
 import java.net.URL;
@@ -13,6 +14,8 @@ public class LoginController implements Initializable {
     @FXML
     private BorderPane loginRoot;
 
+    @FXML
+    private TextField nombreTextField;
 
     public LoginController() {
         try {

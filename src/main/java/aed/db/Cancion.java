@@ -1,11 +1,7 @@
 package aed.db;
 
 import jakarta.persistence.*;
-import java.util.List;
 
-
-
-import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
@@ -26,6 +22,9 @@ public class Cancion {
 
     @Column(name = "titulo")
     private String titulo;
+
+    @Column(name = "tiempo") // Nueva columna para tiempo en segundos
+    private Integer tiempo;
 
     @OneToMany(mappedBy = "cancion", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<KaraokeLog> logs;
@@ -71,6 +70,14 @@ public class Cancion {
         this.titulo = titulo;
     }
 
+    public Integer getTiempo() {
+        return tiempo;
+    }
+
+    public void setTiempo(Integer tiempo) {
+        this.tiempo = tiempo;
+    }
+
     public List<KaraokeLog> getLogs() {
         return logs;
     }
@@ -79,4 +86,3 @@ public class Cancion {
         this.logs = logs;
     }
 }
-

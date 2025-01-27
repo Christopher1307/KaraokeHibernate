@@ -11,7 +11,10 @@
   <url>http://maven.apache.org</url>
 
   <properties>
+    <maven.compiler.target>22</maven.compiler.target>
+    <maven.compiler.source>22</maven.compiler.source>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <exec.mainClass>aed.Main</exec.mainClass>
   </properties>
 
   <dependencies>
@@ -47,5 +50,16 @@
       <version>2.0.9</version>
     </dependency>
 
+    <dependency>
+      <groupId>org.openjfx</groupId>
+      <artifactId>javafx-controls</artifactId>
+      <version>22.0.1</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.openjfx</groupId>
+      <artifactId>javafx-fxml</artifactId>
+      <version>22.0.1</version>
+    </dependency>
   </dependencies>
 </project>

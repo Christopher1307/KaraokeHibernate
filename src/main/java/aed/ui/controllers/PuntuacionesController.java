@@ -1,3 +1,4 @@
+// PuntuacionesController.java
 package aed.ui.controllers;
 
 import aed.db.KaraokeLog;
@@ -8,10 +9,13 @@ import jakarta.persistence.TypedQuery;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+
+import java.io.IOException;
 
 public class PuntuacionesController {
 
@@ -28,6 +32,18 @@ public class PuntuacionesController {
     private TableColumn<KaraokeLog, String> tiempoTableView;
 
     private EntityManagerFactory emf;
+
+    public PuntuacionesController() {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/PuntuacionesView.fxml"));
+        loader.setController(this);
+        try {
+            loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        // Set preferred size
+        root.setPrefSize(1000, 400);
+    }
 
     @FXML
     public void initialize() {
@@ -54,6 +70,10 @@ public class PuntuacionesController {
         } finally {
             em.close();
         }
+    }
+
+    public SplitPane getPuntuacionesRoot() {
+        return root;
     }
 
     public void close() {

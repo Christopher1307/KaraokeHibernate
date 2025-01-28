@@ -9,15 +9,13 @@ public class Main {
 
         // Crear un usuario
         Usuario usuario = new Usuario();
-        usuario.setNombre("Juan Pérez");
+        usuario.setNombreUsuario("Juan Pérez");
         usuario.setNombreUsuario("jperez");
-        usuario.setApellidoUsuario("Pérez");
-        usuario.setEmailUsuario("jperez@mail.com");
 
         usuarioDAO.create(usuario);
 
         // Leer un usuario
         Usuario usuarioLeido = usuarioDAO.read(usuario.getIdUsuario());
-        System.out.println("Usuario leído: " + usuarioLeido.getNombre());
+        System.out.println("Usuario leído: " + usuarioLeido.getNombreUsuario());
     }
 }

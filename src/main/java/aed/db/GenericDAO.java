@@ -2,6 +2,7 @@ package aed.db;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.NoResultException;
 
 import java.util.List;
 
@@ -64,6 +65,24 @@ public class GenericDAO<T> {
         } catch (Exception e) {
             if (tx.isActive()) tx.rollback();
             e.printStackTrace();
+        } finally {
+            em.close();
+        }
+    }
+
+    public T findByNombreUsuario(String nombreUsuario) {
+        EntityManager em = aed.db.EntityManagerUtil.getEntityManager();
+        try {
+            return em.createQuery(
+                            "SELECT u FROM " + entityClass.getSimpleName() + " u WHERE u.nombreUsuario = :nombreUsuario", entityClass)
+                    .setParameter("nombreUsuario", nombreUsuario)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            System.out.println("No se encontró un usuario con el nombreUsuario: " + nombreUsuario);
+            return null; // Si no encuentra resultados, devuelve null
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null; // Si ocurre un error, devuelve null
         } finally {
             em.close();
         }

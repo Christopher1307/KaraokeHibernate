@@ -13,15 +13,6 @@ public class Usuario {
     @Column(name = "nombreUsuario")
     private String nombreUsuario;
 
-    @Column(name = "apellidoUsuario")
-    private String apellidoUsuario;
-
-    @Column(name = "emailUsuario")
-    private String emailUsuario;
-
-    @Column(name = "nombre")
-    private String nombre;
-
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<KaraokeLog> logs;
 
@@ -40,30 +31,6 @@ public class Usuario {
 
     public void setNombreUsuario(String nombreUsuario) {
         this.nombreUsuario = nombreUsuario;
-    }
-
-    public String getApellidoUsuario() {
-        return apellidoUsuario;
-    }
-
-    public void setApellidoUsuario(String apellidoUsuario) {
-        this.apellidoUsuario = apellidoUsuario;
-    }
-
-    public String getEmailUsuario() {
-        return emailUsuario;
-    }
-
-    public void setEmailUsuario(String emailUsuario) {
-        this.emailUsuario = emailUsuario;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
     }
 
     public List<KaraokeLog> getLogs() {

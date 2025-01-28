@@ -1,26 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-
 
 <BorderPane fx:id="loginRoot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
    <padding>
       <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
    </padding>
    <center>
-      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="5.0" BorderPane.alignment="CENTER">
+      <VBox alignment="CENTER" spacing="5.0" BorderPane.alignment="CENTER">
          <children>
             <Label text="Introduce tu nombre:">
                <font>
                   <Font size="17.0" />
                </font>
             </Label>
-            <TextField fx:id="nombreTextField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="150.0" />
+            <HBox alignment="CENTER" spacing="5.0">
+               <children>
+                  <TextField fx:id="nombreTextField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="150.0" />
+                  <Button fx:id="entrarButton" mnemonicParsing="false" onAction="#onEntrarAction" text="Entrar" />
+               </children>
+            </HBox>
          </children>
       </VBox>
    </center>

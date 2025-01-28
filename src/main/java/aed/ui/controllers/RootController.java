@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 
 import java.net.URL;
@@ -17,8 +18,7 @@ public class RootController implements Initializable {
 
     // Model
     private ObjectProperty<Usuario> usuario = new SimpleObjectProperty<>();
-
-
+    private CancionesController cancionesController = new CancionesController();
 
     // View
 
@@ -35,8 +35,21 @@ public class RootController implements Initializable {
     private BorderPane root;
 
     @FXML
-    void OnInicioAction(ActionEvent event) {
+    private Button volverButton;
 
+    @FXML
+    private Label tituloLabel;
+
+    @FXML
+    void onVolverAction(ActionEvent event) {
+
+    }
+
+    @FXML
+    void OnInicioAction(ActionEvent event) {
+        tituloLabel.setVisible(false);
+        this.getRoot().setCenter(cancionesController.getCancionesRoot());
+        volverButton.setVisible(true);
     }
 
     @FXML

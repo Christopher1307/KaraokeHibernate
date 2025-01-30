@@ -2,6 +2,7 @@ package aed.ui.controllers;
 
 import aed.db.GenericDAO;
 import aed.db.Usuario;
+import aed.ui.controllers.RootController;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
@@ -13,13 +14,10 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 import java.net.URL;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -28,10 +26,9 @@ public class LoginController implements Initializable {
     // Model
     private final StringProperty nombre = new SimpleStringProperty();
     private RootController rootController;
-    GenericDAO<Usuario> usuarioDAO = new GenericDAO<>(Usuario.class);
+    private final GenericDAO<Usuario> usuarioDAO = new GenericDAO<>(Usuario.class);
 
     // View
-
     @FXML
     private Button entrarButton;
 
@@ -58,42 +55,58 @@ public class LoginController implements Initializable {
 
     @FXML
     void onEntrarAction(ActionEvent event) {
-
-        Usuario usuario = new Usuario();
-        usuario.setNombreUsuario(nombre.get());
-
-        if (usuarioDAO.findByNombreUsuario(usuario.getNombreUsuario()) == null) {
-            NewUserAlert(usuario);
-        } else {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Bienvenido");
-            alert.setHeaderText("Bienvenido al Karaoke " + usuario.getNombreUsuario());
-            alert.showAndWait();
+        String nombreUsuario = nombre.get();
+        if (nombreUsuario == null || nombreUsuario.trim().isEmpty()) {
+            showErrorAlert("Por favor, ingrese un nombre de usuario.");
+            return;
         }
+
+        Usuario usuario = usuarioDAO.findByNombreUsuario(nombreUsuario);
+
+        if (usuario == null) {
+            if (!NewUserAlert(new Usuario(nombreUsuario))) {
+                return; // No hacer nada si el usuario cancela la creación
+            }
+        } else {
+            showInfoAlert("Bienvenido", "Bienvenido al Karaoke " + usuario.getNombreUsuario());
+        }
+
         rootController = new RootController(usuario);
         Stage stage = (Stage) loginRoot.getScene().getWindow();
         stage.close();
 
-
         Scene scene = new Scene(rootController.getRoot());
         Stage mainStage = new Stage();
-
         mainStage.setScene(scene);
-
         mainStage.show();
     }
 
-    public void NewUserAlert(Usuario newUser) {
+    private boolean NewUserAlert(Usuario newUser) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Nuevo usuario");
         alert.setHeaderText("Usuario no encontrado");
         alert.setContentText("¿Desea crear un nuevo usuario?");
         Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK) {
+        if (result.isPresent() && result.get() == ButtonType.OK) {
             usuarioDAO.create(newUser);
+            return true;
         }
+        return false;
     }
 
+    private void showInfoAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(message);
+        alert.showAndWait();
+    }
+
+    private void showErrorAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(message);
+        alert.showAndWait();
+    }
 
     public BorderPane getLoginRoot() {
         return loginRoot;
@@ -119,5 +132,3 @@ public class LoginController implements Initializable {
         return rootController;
     }
 }
-
-

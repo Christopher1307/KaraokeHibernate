@@ -14,22 +14,26 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.BorderPane;
 
 import java.io.IOException;
 
 public class PuntuacionesController {
 
     @FXML
-    private SplitPane root;
+    private BorderPane root;
 
     @FXML
     private TableView<KaraokeLog> karaokeTableView;
 
     @FXML
-    private TableColumn<KaraokeLog, String> usuarioTableView;
+    private TableColumn<KaraokeLog, String> usuarioColumn;
 
     @FXML
-    private TableColumn<KaraokeLog, String> tiempoTableView;
+    private TableColumn<KaraokeLog, String> cancionColumn;
+
+    @FXML
+    private TableColumn<KaraokeLog, String> fechaColumn;
 
     private EntityManagerFactory emf;
 
@@ -41,8 +45,6 @@ public class PuntuacionesController {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        // Set preferred size
-        root.setPrefSize(1000, 400);
     }
 
     @FXML
@@ -51,8 +53,9 @@ public class PuntuacionesController {
         emf = Persistence.createEntityManagerFactory("KaraokePU");
 
         // Configurar las columnas del TableView
-        usuarioTableView.setCellValueFactory(new PropertyValueFactory<>("usuario"));
-        tiempoTableView.setCellValueFactory(new PropertyValueFactory<>("cancion"));
+        usuarioColumn.setCellValueFactory(new PropertyValueFactory<>("usuario"));
+        cancionColumn.setCellValueFactory(new PropertyValueFactory<>("cancion"));
+        fechaColumn.setCellValueFactory(new PropertyValueFactory<>("fecha"));
 
         // Cargar los datos en el TableView
         loadKaraokeLogs();
@@ -72,7 +75,7 @@ public class PuntuacionesController {
         }
     }
 
-    public SplitPane getPuntuacionesRoot() {
+    public BorderPane getPuntuacionesRoot() {
         return root;
     }
 

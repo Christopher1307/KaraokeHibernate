@@ -6,6 +6,14 @@ import java.util.List;
 @Entity
 @Table(name = "usuarios")
 public class Usuario {
+
+    public Usuario(String nombreUsuario) {
+        this.nombreUsuario = nombreUsuario;
+    }
+
+    public Usuario() {
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idUsuario;

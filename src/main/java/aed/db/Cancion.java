@@ -85,4 +85,9 @@ public class Cancion {
     public void setLogs(List<KaraokeLog> logs) {
         this.logs = logs;
     }
+
+    @Override
+    public String toString() {
+        return nombreCancion + " - " + nombreAutor;
+    }
 }

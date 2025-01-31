@@ -1,6 +1,9 @@
 // RootController.java
 package aed.ui.controllers;
 
+import aed.db.Cancion;
+import aed.db.GenericDAO;
+import aed.db.KaraokeLog;
 import aed.db.Usuario;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -22,6 +25,10 @@ public class RootController implements Initializable {
     private ObjectProperty<Usuario> usuario = new SimpleObjectProperty<>();
     private CancionesController cancionesController = new CancionesController();
     private PuntuacionesController puntuacionesController = new PuntuacionesController();
+
+    private GenericDAO<Usuario> usuarioDAO = new GenericDAO<>(Usuario.class);
+    private GenericDAO<Cancion> cancionDAO = new GenericDAO<>(Cancion.class);
+    private GenericDAO<KaraokeLog> karaokeLogDAO = new GenericDAO<>(KaraokeLog.class);
 
     // View
 
@@ -69,7 +76,7 @@ public class RootController implements Initializable {
 
     @FXML
     void OnCerraAction(ActionEvent event) {
-        // Implementar lógica para cerrar la aplicación
+        System.exit(0);
     }
 
     public RootController(Usuario usuarioSesion) {
@@ -86,10 +93,17 @@ public class RootController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        // View to return to when clicking on the "Volver" button
         initialView = new VBox(iniciarKaraokeButton, puntuacionesButton, cerrarButton);
         initialView.setSpacing(15);
         initialView.setAlignment(javafx.geometry.Pos.CENTER);
         this.getRoot().setCenter(initialView);
+
+        // Set the CancionesController's  variables
+        cancionesController.setUsuarioSesion(usuario.get());
+        cancionesController.setCancionDAO(cancionDAO);
+        cancionesController.setKaraokeLogDAO(karaokeLogDAO);
+
     }
 
     public BorderPane getRoot() {

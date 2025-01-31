@@ -88,6 +88,11 @@ public class GenericDAO<T> {
         }
     }
 
+    public List<Cancion> cargarTodasLasCanciones() {
+        GenericDAO<Cancion> cancionDAO = new GenericDAO<>(Cancion.class);
+        return cancionDAO.findAll();
+    }
+
     public List<T> findAll() {
         EntityManager em = aed.db.EntityManagerUtil.getEntityManager();
         try {

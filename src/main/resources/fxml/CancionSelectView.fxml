@@ -19,6 +19,7 @@
     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
     <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="NEVER" />
   </rowConstraints>
    <children>
@@ -27,12 +28,14 @@
       <TextField fx:id="nombreTextField" editable="false" GridPane.columnIndex="1" />
       <TextField fx:id="autorTextField" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
       <Label text="Duración:" GridPane.rowIndex="2" />
-      <Button fx:id="playButton" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onPlayAction" GridPane.columnSpan="2" GridPane.rowIndex="3">
+      <Button fx:id="playButton" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onPlayAction" GridPane.columnSpan="2" GridPane.rowIndex="4">
          <graphic>
             <FontIcon iconLiteral="fas-play" iconSize="25" />
          </graphic>
       </Button>
       <Label fx:id="tiempoLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+      <Label text="Veces reproducida:" GridPane.rowIndex="3" />
+      <Label fx:id="vecesReproLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
    </children>
    <padding>
       <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

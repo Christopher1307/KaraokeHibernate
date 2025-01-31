@@ -7,8 +7,10 @@ import jakarta.persistence.Persistence;
 import jakarta.persistence.TypedQuery;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -33,6 +35,9 @@ public class PuntuacionesController {
 
     @FXML
     private TableColumn<KaraokeLog, String> fechaColumn;
+
+    @FXML
+    private Button recargarButton;
 
     @FXML
     private TextField yearTextField;
@@ -76,6 +81,12 @@ public class PuntuacionesController {
             em.close();
         }
     }
+
+    @FXML
+    void onRecargarAction(ActionEvent event) {
+        loadKaraokeLogs();
+    }
+
 
     @FXML
     private void onFilterByYear() {

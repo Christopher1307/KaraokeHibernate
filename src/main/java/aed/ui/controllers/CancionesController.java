@@ -20,6 +20,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
 import java.net.URL;
+import java.util.Comparator;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class CancionesController  implements Initializable {
@@ -58,19 +60,27 @@ public class CancionesController  implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        cancionSelectController.setKaraokeLogDAO(karaokeLogDAO);
+        cancionSelectController.setUsuario(usuarioSesion);
+
+        // Obtener todas las canciones y ordenarlas por 'vecesCantada' de mayor a menor
+        List<Cancion> cancionesOrdenadas = cancionDAO.findAll()
+                .stream()
+                .sorted(Comparator.comparingInt(Cancion::getVecesCantada).reversed())
+                .toList();
+
+        canciones.setAll(cancionesOrdenadas);
+
         cancionesListView.itemsProperty().bind(canciones);
         cancionesListView.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
             cancionSeleccionada.set(newVal);
         });
-
-        canciones.setAll(cancionDAO.findAll());
 
         // Binds
         cancionSelectController.cancionProperty().bindBidirectional(cancionSeleccionada);
 
         // Listeners
         cancionSeleccionada.addListener(this::onSelectedCancionChanged);
-
     }
 
     private void onSelectedCancionChanged(ObservableValue<? extends Cancion> o, Cancion ov, Cancion nv) {

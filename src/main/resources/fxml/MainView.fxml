@@ -27,7 +27,7 @@
         <VBox alignment="CENTER" spacing="15.0" BorderPane.alignment="CENTER">
             <children>
                 <Button fx:id="iniciarKaraokeButton" maxWidth="200.0" mnemonicParsing="false" onAction="#OnInicioAction" text="Iniciar Karaoke" />
-                <Button fx:id="puntuacionesButton" maxWidth="200.0" mnemonicParsing="false" onAction="#OnPuntuacionesAction" text="Puntuaciones" />
+                <Button fx:id="puntuacionesButton" maxWidth="200.0" mnemonicParsing="false" onAction="#OnPuntuacionesAction" text="Historial" />
                 <Button fx:id="cerrarButton" maxWidth="200.0" mnemonicParsing="false" onAction="#OnCerraAction" text="Cerrar" />
             </children>
         </VBox>

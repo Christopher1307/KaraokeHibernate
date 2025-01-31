@@ -1,3 +1,4 @@
+// KaraokeLog.java
 package aed.db;
 
 import jakarta.persistence.*;
@@ -51,5 +52,10 @@ public class KaraokeLog {
 
     public void setFechaRepro(String fechaRepro) {
         this.fechaRepro = fechaRepro;
+    }
+
+    // Método para obtener el nombre del usuario
+    public String getUsuarioNombre() {
+        return usuario != null ? usuario.getNombreUsuario() : null;
     }
 }

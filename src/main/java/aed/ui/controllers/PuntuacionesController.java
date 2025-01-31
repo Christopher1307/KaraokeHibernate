@@ -10,7 +10,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.SplitPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -53,9 +52,9 @@ public class PuntuacionesController {
         emf = Persistence.createEntityManagerFactory("KaraokePU");
 
         // Configurar las columnas del TableView
-        usuarioColumn.setCellValueFactory(new PropertyValueFactory<>("usuario"));
+        usuarioColumn.setCellValueFactory(new PropertyValueFactory<>("usuarioNombre"));
         cancionColumn.setCellValueFactory(new PropertyValueFactory<>("cancion"));
-        fechaColumn.setCellValueFactory(new PropertyValueFactory<>("fecha"));
+        fechaColumn.setCellValueFactory(new PropertyValueFactory<>("fechaRepro"));
 
         // Cargar los datos en el TableView
         loadKaraokeLogs();

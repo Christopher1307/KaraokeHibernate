@@ -1,4 +1,3 @@
-// PuntuacionesController.java
 package aed.ui.controllers;
 
 import aed.db.KaraokeLog;
@@ -12,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 
@@ -33,6 +33,9 @@ public class PuntuacionesController {
 
     @FXML
     private TableColumn<KaraokeLog, String> fechaColumn;
+
+    @FXML
+    private TextField yearTextField;
 
     private EntityManagerFactory emf;
 
@@ -68,6 +71,28 @@ public class PuntuacionesController {
             ObservableList<KaraokeLog> logs = FXCollections.observableArrayList(query.getResultList());
 
             // Asignar los datos al TableView
+            karaokeTableView.setItems(logs);
+        } finally {
+            em.close();
+        }
+    }
+
+    @FXML
+    private void onFilterByYear() {
+        String year = yearTextField.getText();
+        if (year == null || year.trim().isEmpty()) {
+            loadKaraokeLogs();
+            return;
+        }
+
+        EntityManager em = emf.createEntityManager();
+        try {
+            // Consulta para obtener los registros de KaraokeLog filtrados por año
+            TypedQuery<KaraokeLog> query = em.createQuery("SELECT k FROM KaraokeLog k WHERE k.fechaRepro LIKE :year", KaraokeLog.class);
+            query.setParameter("year", year + "%");
+            ObservableList<KaraokeLog> logs = FXCollections.observableArrayList(query.getResultList());
+
+            // Asignar los datos filtrados al TableView
             karaokeTableView.setItems(logs);
         } finally {
             em.close();
